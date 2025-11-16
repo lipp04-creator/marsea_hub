@@ -1,0 +1,260 @@
+/* map.css
+   Styling khusus untuk halaman Map (ALKI 1 + MARSEA)
+   Tetap mengikuti gaya umum MARSEA (card, grid, dsb).
+*/
+
+.muted {
+  color: #6b7a90;
+  font-size: 13px;
+}
+
+/* KPI atas map */
+.map-kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.map-kpi-header h3 {
+  margin: 0;
+}
+
+.map-kpi-header .muted {
+  font-size: 12px;
+}
+
+.map-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 12px;
+}
+
+.map-kpi {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg,#f6fbff,#ffffff);
+  box-shadow: 0 10px 30px rgba(9,30,46,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.map-kpi-label {
+  font-size: 13px;
+  color: #4a5a70;
+  font-weight: 600;
+}
+
+.map-kpi-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ocean-2, #0b5f8a);
+}
+
+.map-kpi-desc {
+  font-size: 11px;
+  color: #7d8ca4;
+}
+
+/* Tabs */
+.map-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #e0e7f0;
+  margin: -4px -4px 12px -4px;
+  padding: 0 4px 8px 4px;
+}
+
+.tab-btn {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5a70;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.tab-btn .tab-subtitle {
+  font-weight: 400;
+  font-size: 11px;
+  color: #7d8ca4;
+}
+
+.tab-btn.active {
+  background: #ffffff;
+  box-shadow: 0 10px 26px rgba(9,30,46,0.12);
+  color: var(--ocean-2,#0b5f8a);
+}
+
+/* Panel container */
+.map-panel {
+  display: none;
+}
+
+.map-panel.active {
+  display: block;
+}
+
+.map-panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+/* Filter group ALKI */
+.map-filter-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.filter-btn {
+  border-radius: 999px;
+  border: 1px solid #d1deef;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #f6fbff;
+  color: #42536a;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: linear-gradient(180deg,var(--accent,#ffd36b),#ffb84d);
+  color: #07212a;
+  border-color: transparent;
+}
+
+/* Layout map + side */
+.map-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(0,1fr);
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.map-area {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(9,30,46,0.22);
+  background:#dbe7f4;
+}
+
+.leaflet-map {
+  width: 100%;
+  height: 520px;
+  min-height: 520px;
+}
+
+/* Side panel */
+.map-side {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.side-title {
+  margin: 0;
+  font-size: 15px;
+}
+
+.side-desc {
+  margin: 0 0 4px;
+}
+
+.side-list {
+  border-radius: 12px;
+  background:#f6fbff;
+  border: 1px solid #dde6f4;
+  padding: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.ship-item,
+.dock-item {
+  border:none;
+  background:#ffffff;
+  border-radius:8px;
+  padding:8px 9px;
+  text-align:left;
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+  cursor:pointer;
+  transition:transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  box-shadow:0 4px 10px rgba(9,30,46,0.05);
+}
+
+.ship-item:hover,
+.dock-item:hover {
+  background:#f0f6ff;
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(9,30,46,0.12);
+}
+
+.ship-badge {
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  margin-top:4px;
+}
+
+.ship-meta-title {
+  font-size:13px;
+  font-weight:600;
+  color:#1f2a3a;
+}
+
+.ship-meta-sub {
+  font-size:11px;
+  color:#6b7a90;
+}
+
+/* Summary MARSEA */
+.summary-box {
+  padding:8px;
+  border-radius:10px;
+  background:#ffffff;
+  border:1px solid #d7e2f2;
+  font-size:12px;
+  color:#45536b;
+  margin-bottom:6px;
+}
+
+/* Responsif */
+@media (max-width: 960px) {
+  .map-kpi-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .map-wrap {
+    grid-template-columns: minmax(0,1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .map-kpi-grid {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .map-panel-header {
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .map-filter-group {
+    justify-content:flex-start;
+  }
+}

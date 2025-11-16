@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>MARSEA Hub — Community</title>
+
+  <link rel="stylesheet" href="style.css"/>
+
+  <!-- JS halaman -->
+  <script src="community.js" defer></script>
+
+  <!-- AUTH -->
+  <script src="auth.js" defer></script>
+
+  <style>
+    /* ===== HERO ===== */
+    .hero-community {
+      padding: 32px 32px 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: center;
+    }
+    .hero-community-main { flex: 1 1 260px; }
+    .hero-community h2 { font-size: 30px; font-weight: 800; margin-bottom: 6px; }
+    .hero-community p { font-size: 14px; color: white !important; max-width: 520px; }
+    .hero-community-actions { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-community-side { flex: 0 0 260px; }
+
+    .hero-community-stat {
+      background: linear-gradient(135deg,#0f6bd9,#11a0f3);
+      color: white;
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+      font-size: 13px;
+    }
+
+    .hero-community-stat h3 { font-size: 16px; margin-bottom: 10px; }
+    .hero-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .hero-chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(4px);
+    }
+
+    /* ===== FEED LIST ===== */
+    .feed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .feed-header h3 { margin: 0; }
+    .feed-updated { font-size: 11px; color: var(--muted); }
+    .feed-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+
+    .feed-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 3px 8px rgba(15,23,42,0.04);
+    }
+
+    .feed-icon {
+      width: 32px; height: 32px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      background: #eff6ff; font-size: 18px;
+    }
+
+    .feed-body { display: flex; flex-direction: column; gap: 3px; font-size: 13px; }
+    .feed-title { font-weight: 700; color: #1f2933; }
+    .feed-text { color: #4b5a6b; line-height: 1.4; }
+    .feed-meta { font-size: 11px; color: #8a94a3; }
+
+    /* ===== FORM LAPOR ===== */
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 10px 18px; margin-bottom: 8px; }
+    .form-field label.lbl { display:block;font-size:12px;font-weight:600;margin-bottom:4px; }
+    .form-field .req { color:#e11d48; }
+    .form-field input, .form-field select {
+      width:100%; padding:8px 10px; border-radius:10px;
+      border:1px solid rgba(15,23,42,0.1); font-size:13px;
+    }
+    .form-row { margin-top: 8px; }
+    .form-actions { margin-top:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+
+    textarea#rDesc { resize: vertical; }
+
+    .btn-primary-sm { padding:7px 12px; border-radius:8px; background:var(--accent); color:white; border:none; cursor:pointer; font-size:13px; font-weight:600; }
+    .btn-ghost-sm { padding:7px 12px; border-radius:8px; background:#edf2f7; color:#1a293b; border:none; cursor:pointer; font-size:13px; font-weight:600;}
+
+    /* ===== UMKM ===== */
+    .umkm-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-top:12px; }
+    .umkm-card {
+      border-radius:14px; border:1px solid #e2e8f0; padding:12px 14px;
+      background:#ffffff; box-shadow:0 4px 10px rgba(15,23,42,0.04);
+      font-size:13px; display:grid; grid-template-columns:auto 1fr; gap:8px; align-items:flex-start;
+    }
+    .umkm-icon { width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#eff6ff;font-size:18px; }
+    .umkm-card h4 { margin:0 0 4px; font-size:14px; font-weight:700; }
+    .umkm-card p { margin:0 0 6px; color:var(--muted); font-size:12px; }
+    .umkm-link { font-size:12px;font-weight:600;color:var(--accent); }
+
+    /* ===== FOOTER ===== */
+    .community-footer { margin-top:22px; padding:18px 24px 24px; font-size:12px; color:#9fb5cb; }
+    .community-footer a { color:#cfeaff; }
+  </style>
+</head>
+
+<body>
+
+<script>
+  // proteksi halaman
+  protectPage();
+</script>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+  <img src="assets/Logo.png" alt="Logo MARSEA" class="logo-img">
+  <h2 class="brand-title">
+    <span class="brand-main">MARSEA</span>
+    <span class="brand-sub">Hub</span>
+  </h2>
+</div>
+    <ul class="sidebar-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html"> Dashboard</a></li>
+      <li><a href="map.html">Map</a></li>
+      <li><a href="services.html"> Services</a></li>
+      <li><a href="mitra.html"> Mitra</a></li>
+      <li><a class="active" href="community.html"> Community</a></li>
+       <li><a href="login.html"> Login</a></li>
+      <!-- LOGOUT BUTTON -->
+      <li><a href="#" onclick="logout()"> Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Community & Collaboration</h1>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero hero-community">
+      <div class="hero-community-main">
+        <h2>Forum MARSEA & Lapor Pesisir</h2>
+        <p>
+          Ruang bersama untuk laporan tumpahan, keselamatan, aktivitas nelayan, dan UMKM pendukung
+          operasi laut di sekitar Merak. Laporan dikirim cepat melalui WhatsApp admin.
+        </p>
+        <div class="hero-community-actions">
+          <a href="#reportSection" class="btn-primary">Lapor Cepat</a>
+          <a href="#feeds" class="btn-secondary">Lihat Feed</a>
+        </div>
+      </div>
+
+      <div class="hero-community-side">
+        <div class="hero-community-stat">
+          <h3>Snapshot Komunitas</h3>
+          <p style="margin:0;">
+            Integrasi laporan masyarakat, operator kapal, dan UMKM lokal di koridor ALKI 1.
+          </p>
+          <div class="hero-chip-row">
+            <span class="hero-chip">Oil Spill</span>
+            <span class="hero-chip">Keselamatan</span>
+            <span class="hero-chip">Limbah Laut</span>
+            <span class="hero-chip">UMKM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEEDS -->
+    <section id="feeds" class="card">
+      <div class="feed-header">
+        <h3>Community Feeds</h3>
+        <div class="feed-updated">Terakhir diperbarui: <span id="feedUpdated">—</span></div>
+      </div>
+
+      <div id="feedGrid" class="feed-list">
+        <!-- Diisi oleh JS -->
+      </div>
+    </section>
+
+    <!-- QUICK REPORT -->
+    <section id="reportSection" class="card" style="margin-top:16px;">
+      <h3 style="margin:0 0 8px;">Lapor Cepat (WhatsApp)</h3>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label class="lbl">Nama Pelapor <span class="req">*</span></label>
+          <input type="text" id="rName" placeholder="Nama lengkap"/>
+        </div>
+        <div class="form-field">
+          <label class="lbl">Kontak WhatsApp (+62…) <span class="req">*</span></label>
+          <input type="tel" id="rPhone" placeholder="62812xxxxxxx"/>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label class="lbl">Kategori Laporan <span class="req">*</span></label>
+          <select id="rCategory">
+            <option value="Oil Spill">Oil Spill</option>
+            <option value="Keselamatan">Keselamatan</option>
+            <option value="Limbah">Limbah</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="lbl">Lokasi</label>
+          <select id="rLocMode">
+            <option value="pier">Dermaga MARSEA</option>
+            <option value="coords">Koordinat (lat/lng)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Dermaga -->
+      <div id="rPierRow" class="form-grid form-row">
+        <div class="form-field">
+          <label class="lbl">Dermaga</label>
+          <select id="rPier">
+            <option value="ARUNIKA">Arunika</option>
+            <option value="SAMUDRA">Samudra</option>
+            <option value="NIRWANA">Nirwana</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Koordinat -->
+      <div id="rCoordsRow" class="form-grid form-row" style="display:none;">
+        <div class="form-field">
+          <label class="lbl">Latitude</label>
+          <input type="number" step="0.000001" id="rLat" placeholder="-6.01"/>
+        </div>
+        <div class="form-field">
+          <label class="lbl">Longitude</label>
+          <input type="number" step="0.000001" id="rLng" placeholder="106.02"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field" style="width:100%;">
+          <label class="lbl">Deskripsi Singkat <span class="req">*</span></label>
+          <textarea id="rDesc" rows="3"
+            placeholder="Ceritakan ringkas kejadian..."
+            style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(11,95,138,0.1);font-size:13px;"></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button id="btnSendReport" class="btn-primary-sm" type="button">Kirim ke WhatsApp Admin</button>
+        <button id="btnSaveDraftReport" class="btn-ghost-sm" type="button">Simpan Draft</button>
+        <small style="color:var(--muted);">
+          Pesan hanya dikirim ke WhatsApp admin.
+        </small>
+      </div>
+    </section>
+
+    <!-- UMKM DIRECTORY -->
+    <section class="card" style="margin-top:16px;">
+      <h3 style="margin:0 0 6px;">UMKM Pendukung</h3>
+      <p style="margin:0 0 10px;font-size:12px;color:var(--muted);">
+        Contoh UMKM sekitar Merak yang mendukung operasi kapal dan nelayan.
+      </p>
+
+      <div class="umkm-grid">
+        <article class="umkm-card">
+          <div class="umkm-icon">📦</div>
+          <div>
+            <h4>LogiFast</h4>
+            <p>Jasa bongkar muat terkoneksi kapal logistik.</p>
+            <a href="https://wa.me/6281311111111" target="_blank" class="umkm-link">Kontak via WA</a>
+          </div>
+        </article>
+
+        <article class="umkm-card">
+          <div class="umkm-icon">🛠️</div>
+          <div>
+            <h4>MarineFix</h4>
+            <p>Bengkel kapal ringan untuk perbaikan cepat.</p>
+            <a href="https://wa.me/6281388888888" target="_blank" class="umkm-link">Kontak via WA</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="community-footer">
+      MARSEA Hub — prototipe ekosistem komunitas ALKI 1.
+    </section>
+  </main>
+
+</body>
+</html>

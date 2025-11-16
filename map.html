@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MARSEA Hub — Marine Intelligence Map</title>
+
+  <!-- Gaya utama MARSEA -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Gaya khusus map -->
+  <link rel="stylesheet" href="map.css" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+ <script src="auth.js" defer></script>
+</head>
+<body>
+  <script>
+    protectPage();
+  </script>
+  <!-- SIDEBAR SAMA PERSIS DENGAN index.html -->
+  <aside class="sidebar" id="sidebar">
+     <div class="sidebar-logo">
+  <img src="assets/Logo.png" alt="Logo MARSEA" class="logo-img">
+  <h2 class="brand-title">
+    <span class="brand-main">MARSEA</span>
+    <span class="brand-sub">Hub</span>
+  </h2>
+</div>
+    <ul class="sidebar-menu">
+      <li><a href="index.html"> Home</a></li>
+      <li><a href="dashboard.html"> Dashboard</a></li>
+      <li><a href="map.html" class="active"> Map</a></li>
+      <li><a href="services.html"> Services</a></li>
+      <li><a href="mitra.html"> Mitra</a></li>
+      <li><a href="community.html"> Community</a></li>
+      <li><a href="login.html"> Login</a></li>
+      <!-- LOGOUT (Tambahan aman) -->
+      <li><a href="#" onclick="logout()"> Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content" id="mainContent">
+    <!-- TOPBAR SAMA KONSEPNYA -->
+    <header class="topbar">
+      <button id="menuToggle">☰</button>
+      <h1>Marine Intelligence Map — ALKI 1 & MARSEA Rest Area</h1>
+    </header>
+
+    <!-- HEADER MAP + PENJELASAN SINGKAT -->
+    <section class="card-block">
+      <div class="section-header">
+        <h3>Pantauan Kapal & Rest Area Laut</h3>
+        <p>
+          Halaman ini memadukan pemantauan lalu lintas kapal di koridor
+          <strong>ALKI 1</strong> dengan visualisasi rest area laut
+          <strong>MARSEA</strong> di sekitar Merak.
+        </p>
+      </div>
+      <p style="font-size:0.85rem;color:var(--muted);margin-top:4px;">
+        Data kapal diambil dari <code>vessels.json</code>, sedangkan dermaga MARSEA
+        diambil dari <code>restareas.json</code>. Seluruh data masih bersifat dummy
+        untuk keperluan prototipe PKM-KC.
+      </p>
+    </section>
+
+    <!-- KPI MAP -->
+    <section class="card-block">
+      <div class="map-kpi-header">
+        <h3>Operational Overview</h3>
+        <small id="lastUpdate" class="muted">Last update: -</small>
+      </div>
+      <div class="map-kpi-grid">
+        <div class="map-kpi">
+          <div class="map-kpi-label">Active Vessels (ALKI 1)</div>
+          <div class="map-kpi-value" id="kpiVessels">0</div>
+          <div class="map-kpi-desc">
+            Jumlah kapal yang terbaca dari <code>vessels.json</code>.
+          </div>
+        </div>
+        <div class="map-kpi">
+          <div class="map-kpi-label">Available Slots (MARSEA)</div>
+          <div class="map-kpi-value" id="kpiSlots">0</div>
+          <div class="map-kpi-desc">
+            Total slot sandar kosong dari seluruh dermaga MARSEA.
+          </div>
+        </div>
+        <div class="map-kpi">
+          <div class="map-kpi-label">Average NDWI</div>
+          <div class="map-kpi-value" id="kpiNdwi">0.00</div>
+          <div class="map-kpi-desc">
+            Rata-rata NDWI dari <code>ndwi.json</code> sebagai indikasi kualitas perairan.
+          </div>
+        </div>
+        <div class="map-kpi">
+          <div class="map-kpi-label">Alerts</div>
+          <div class="map-kpi-value" id="kpiAlerts">0</div>
+          <div class="map-kpi-desc">
+            Placeholder untuk peringatan tumpahan, cuaca buruk, dan risiko lain.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP + TABS (2 PETA DALAM 1 HALAMAN) -->
+    <section class="card-block">
+      <!-- TABS UNTUK BAGIAN MAP SAJA -->
+      <div class="map-tabs">
+        <button class="tab-btn active" data-target="alkiPanel">
+          ALKI 1 Traffic
+          <span class="tab-subtitle">Dummy AIS di koridor ALKI 1</span>
+        </button>
+        <button class="tab-btn" data-target="marseaPanel">
+          MARSEA Rest Area
+          <span class="tab-subtitle">3 dermaga di dekat Merak</span>
+        </button>
+      </div>
+
+      <!-- PANEL ALKI -->
+      <div id="alkiPanel" class="map-panel active">
+        <div class="map-panel-header">
+          <div>
+            <h3 style="margin:0 0 4px;">ALKI 1 — Dummy AIS Vessels</h3>
+            <p class="muted" style="margin:0;">
+              Menampilkan sebaran kapal di sepanjang koridor ALKI 1. Gunakan filter
+              tipe kapal di sebelah kanan untuk memfokuskan tampilan.
+            </p>
+          </div>
+          <div class="map-filter-group" id="alkiFilterGroup">
+            <button class="filter-btn active" data-type="all">All</button>
+            <button class="filter-btn" data-type="Passenger">Passenger</button>
+            <button class="filter-btn" data-type="Logistics">Logistics</button>
+            <button class="filter-btn" data-type="Tanker">Tanker</button>
+            <button class="filter-btn" data-type="Operational">Operational</button>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <div class="map-area">
+            <div id="alkiMap" class="leaflet-map"></div>
+          </div>
+          <aside class="map-side">
+            <h4 class="side-title">Daftar Kapal (ALKI 1)</h4>
+            <p class="muted side-desc">
+              Klik nama kapal untuk memusatkan peta ke posisi kapal tersebut.
+            </p>
+            <div id="alkiShipList" class="side-list ships"></div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- PANEL MARSEA -->
+      <div id="marseaPanel" class="map-panel">
+        <div class="map-panel-header">
+          <div>
+            <h3 style="margin:0 0 4px;">MARSEA Rest Area — Arunika, Samudra, Nirwana</h3>
+            <p class="muted" style="margin:0;">
+              Visualisasi rest area laut independen MARSEA di dekat Merak, dengan tiga
+              dermaga dan slot sandar yang terdistribusi berdasarkan fungsi layanan.
+            </p>
+          </div>
+        </div>
+
+        <div class="map-wrap">
+          <div class="map-area">
+            <div id="marseaMap" class="leaflet-map"></div>
+          </div>
+          <aside class="map-side">
+            <h4 class="side-title">Dermaga MARSEA</h4>
+            <p class="muted side-desc">
+              Ringkasan kapasitas dan fungsi tiap dermaga berdasarkan
+              <code>restareas.json</code>.
+            </p>
+            <div id="marseaSummary" class="summary-box"></div>
+            <div id="marseaDockList" class="side-list docks"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATATAN IMPLEMENTASI -->
+    <section class="card-block">
+      <h3 style="margin-bottom:6px;">Catatan Implementasi</h3>
+      <ul style="font-size:0.85rem;color:var(--muted);padding-left:16px;">
+        <li>Seluruh data di halaman ini masih berbasis file JSON lokal (dummy) untuk prototipe.</li>
+        <li>Saat terhubung backend, endpoint AIS dan status dermaga dapat menggantikan file JSON ini.</li>
+        <li>Pemisahan panel ALKI dan MARSEA dimaksudkan untuk membedakan fungsi koridor pelayaran dan rest area.</li>
+      </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2025 MARSEA Hub — ALKI 1 Merak | ops@marsea.id</p>
+    </footer>
+  </main>
+
+  <!-- JS: sidebar toggle, dll (aman dipakai juga di map) -->
+  <script src="main.js"></script>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <!-- Logika peta (vessels + restareas) -->
+  <script src="map.js"></script>
+</body>
+</html>

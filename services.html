@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>MARSEA Hub — Services</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .hero-services {
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-services h2 {
+      font-size: 32px;
+      font-weight: 800;
+    }
+
+    .hero-services p {
+      font-size: 15px;
+      margin-top: 6px;
+      color: white !important;
+      max-width: 480px;
+    }
+
+    .services-section {
+      margin-top: 24px;
+      padding: 0 24px 40px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+      margin-top: 20px;
+    }
+
+    .service-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px;
+      border: 1px solid #e8eef5;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.11);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 26px;
+      background: linear-gradient(180deg,#eaf6ff,#dcefff);
+    }
+
+    .service-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .service-location {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7a8b;
+      margin-bottom: 8px;
+    }
+
+    .service-desc {
+      font-size: 13px;
+      color:var(--muted);
+      margin-bottom: 10px;
+      min-height: 40px;
+    }
+
+    .service-price-hint {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #1f3b57;
+    }
+
+    .service-btn {
+      background: var(--accent);
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .category-row {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .category-tag {
+      padding: 6px 12px;
+      background: #f3f7fb;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #2c3e50;
+      border: 1px solid #e0e7ef;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+    }
+
+    .modal-box {
+      width: 420px;
+      max-width: 92vw;
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: zoomIn 0.2s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .modal-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .modal-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 8px 0 4px;
+    }
+
+    .modal-select,
+    .modal-input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #d0d8e1;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      gap: 8px;
+    }
+
+    .btn-back,
+    .btn-next {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-back { background: #e3e9f0; }
+    .btn-next { background: var(--accent); color: white; }
+
+    .summary-box {
+      margin-top: 8px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f3f7fb;
+      border: 1px solid #dce4ec;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .premium-footer {
+      margin-top: 32px;
+      padding: 12px 24px 26px;
+      font-size: 12px;
+      color: #6d7b88;
+      text-align: center;
+    }
+  </style>
+   <script src="auth.js" defer></script>
+</head>
+
+<body>
+  <!-- PROTECT PAGE -->
+  <script>
+    protectPage();
+  </script>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+     <div class="sidebar-logo">
+  <img src="assets/Logo.png" alt="Logo MARSEA" class="logo-img">
+  <h2 class="brand-title">
+    <span class="brand-main">MARSEA</span>
+    <span class="brand-sub">Hub</span>
+  </h2>
+</div>
+    <ul class="sidebar-menu">
+      <li><a href="index.html"> Home</a></li>
+      <li><a href="dashboard.html"> Dashboard</a></li>
+      <li><a href="map.html"> Map</a></li>
+      <li><a class="active" href="services.html"> Services</a></li>
+      <li><a href="mitra.html"> Mitra</a></li>
+      <li><a href="community.html"> Community</a></li>
+      <li><a href="login.html"> Login</a></li>
+      <!-- LOGOUT (Tambahan aman) -->
+      <li><a href="#" onclick="logout()"> Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>MARSEA Services</h1>
+    </header>
+
+    <section class="hero hero-services">
+      <div class="hero-text">
+        <h2>Layanan Kapal di ALKI 1</h2>
+        <p>
+          Fuel, water, docking, waste, maintenance, inspection, survey, dan emergency response —
+          seluruhnya diintegrasikan dalam satu sistem reservasi MARSEA.
+        </p>
+        <div class="hero-cta">
+          <a href="map.html" class="btn-primary">Lihat Posisi Rest Area</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-image-placeholder">
+          Tampilan prototipe sistem booking layanan MARSEA untuk kapal yang melintas ALKI 1.
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section">
+      <div class="category-row">
+        <div class="category-tag">Fuel & Water</div>
+        <div class="category-tag">Docking</div>
+        <div class="category-tag">Waste</div>
+        <div class="category-tag">Maintenance</div>
+        <div class="category-tag">Inspection</div>
+        <div class="category-tag">Survey</div>
+        <div class="category-tag">Emergency</div>
+      </div>
+
+      <div id="services-grid" class="services-grid"></div>
+    </section>
+
+    <div class="premium-footer">
+      MARSEA Hub — prototype layanan kapal terintegrasi di koridor ALKI 1 (Merak).
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal-box">
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="services.js"></script>
+</body>
+</html>

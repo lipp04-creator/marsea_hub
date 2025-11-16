@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARSEA Hub — Register</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="auth.js"></script>
+
+  <style>
+  body {
+    background: linear-gradient(135deg, #0048ff, #001f4d);
+    font-family: 'Inter', sans-serif;
+    color: white;
+    margin: 0;
+    display: block !important;
+  }
+
+  .auth-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .auth-container {
+    width: 360px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(16px);
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .input-group {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 12px 42px 12px 14px;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 10px;
+    color: white;
+  }
+
+  .toggle-pass {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  .btn-auth {
+    width: 100%;
+    padding: 12px;
+    background: #00c2ff;
+    color: #002040;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .error-msg {
+    display: none;
+    background: rgba(255,65,65,0.25);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    text-align: center;
+    color: #ffdede;
+  }
+</style>
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-container">
+  <img src="assets/Logo.png" alt="Logo MARSEA" class="auth-logo">
+
+  <h2 class="auth-title">
+    Login <span class="brand-main">MARSEA</span>
+    <span class="brand-sub">Hub</span>
+  </h2>
+
+      <div id="regError" class="error-msg"></div>
+
+      <div class="input-group">
+        <input type="text" id="regNama" placeholder="Nama Lengkap">
+      </div>
+
+      <div class="input-group">
+        <input type="email" id="regEmail" placeholder="Email">
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="regPass" placeholder="Password">
+        <span class="toggle-pass" onclick="togglePass('regPass')">👁️</span>
+      </div>
+
+      <button class="btn-auth" onclick="registerUser()">Daftar</button>
+
+      <p style="margin-top:14px; text-align:center;">
+        Sudah punya akun? <a href="login.html" style="color:#8cd8ff;">Login</a>
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>

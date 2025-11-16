@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MARSEA Hub — Merak Sea Service Area</title>
+
+  <!-- CSS utama -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js untuk mini NDWI -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+  <img src="assets/Logo.png" alt="Logo MARSEA" class="logo-img">
+  <h2 class="brand-title">
+    <span class="brand-main">MARSEA</span>
+    <span class="brand-sub">Hub</span>
+  </h2>
+</div>
+    <ul class="sidebar-menu">
+      <li><a href="index.html" class="active"> Home</a></li>
+      <li><a href="dashboard.html"> Dashboard</a></li>
+      <li><a href="map.html"> Map</a></li>
+      <li><a href="services.html"> Services</a></li>
+      <li><a href="mitra.html"> Mitra</a></li>
+      <li><a href="community.html"> Community</a></li>
+      <li><a href="login.html"> Login</a></li>
+      <li><a href="#" onclick="logout()"> Logout</a></li>
+
+    </ul>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content" id="mainContent">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button id="menuToggle">☰</button>
+      <h1>MARSEA Hub — ALKI 1 Merak</h1>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <h2>Digital Rest Area Laut di Jalur ALKI 1</h2>
+        <p>
+          MARSEA Hub membantu kapal penumpang, logistik, dan tanker mencari slot sandar,
+          terhubung dengan mitra layanan, dan memantau kualitas perairan di sekitar
+          <strong>Pelabuhan Merak</strong>.
+        </p>
+        <div class="hero-cta">
+          <a href="map.html" class="btn-primary">Lihat Peta Rest Area</a>
+          <a href="services.html" class="btn-secondary">Layanan Kapal</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <!-- ganti ke foto kamu sendiri kalau sudah ada -->
+        <div class="hero-image-placeholder">
+          Peta Udara<br>Pelabuhan Merak
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI -->
+    <section class="kpi-section">
+      <div class="section-header">
+        <h3>Status Operasional Hari Ini</h3>
+        <p>Ringkasan data kapal dan kapasitas rest area berdasarkan home.json.</p>
+      </div>
+      <div class="kpi-grid" id="kpiGrid">
+        <!-- diisi main.js -->
+      </div>
+    </section>
+
+    <!-- NDWI MINI CHART -->
+    <section class="card-block">
+      <div class="section-header">
+        <h3>Tren NDWI Perairan Merak</h3>
+        <p>Nilai NDWI mingguan dari ndwi.json untuk memantau kualitas perairan.</p>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="ndwiMiniChart"></canvas>
+      </div>
+    </section>
+
+    <!-- LAYANAN PREVIEW -->
+    <section class="card-block">
+      <div class="section-header">
+        <h3>Layanan Utama MARSEA</h3>
+        <p>Beberapa layanan inti yang dapat dipesan melalui halaman Services.</p>
+      </div>
+      <div class="grid-2">
+        <div class="info-card">
+          <h4>⚓ Docking & Berthing</h4>
+          <p>Reservasi slot sandar terjadwal di dermaga rest area laut MARSEA untuk berbagai jenis kapal.</p>
+        </div>
+        <div class="info-card">
+          <h4>⛽ Fuel & Fresh Water</h4>
+          <p>Pengisian BBM dan air tawar terintegrasi dengan mitra resmi di sekitar Selat Sunda.</p>
+        </div>
+        <div class="info-card">
+          <h4>🛠️ Maintenance & Waste</h4>
+          <p>Perawatan ringan dan pengelolaan limbah kapal sesuai regulasi lingkungan.</p>
+        </div>
+        <div class="info-card">
+          <h4>🚨 Emergency & Survey</h4>
+          <p>Koordinasi awal untuk insiden di laut dan dukungan survei teknis kapal.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MITRA & KOMUNITAS -->
+    <section class="card-block">
+      <div class="section-header">
+        <h3>Mitra & Komunitas</h3>
+        <p>Ekosistem penyedia jasa dan kanal laporan di sekitar MARSEA.</p>
+      </div>
+      <div class="grid-2">
+        <div class="info-card">
+          <h4>🤝 Mitra Layanan</h4>
+          <p>Terhubung dengan penyedia bunker fuel, logistik, tugboat, dan inspeksi kapal melalui halaman Mitra.</p>
+        </div>
+        <div class="info-card">
+          <h4>🌐 Laporan Community</h4>
+          <p>Oil spill kecil, limbah terapung, atau kendala keselamatan dapat dilaporkan ke admin MARSEA.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="card-block">
+      <div class="section-header">
+        <h3>Tentang Prototipe MARSEA Hub</h3>
+      </div>
+      <p>
+        Prototipe ini menunjukkan bagaimana sebuah rest area laut independen di sekitar Merak
+        dapat dikelola secara digital: mulai dari pemetaan kapal, pemesanan layanan, hingga
+        monitoring lingkungan. Data saat ini masih berbasis JSON lokal dan dummy, namun
+        struktur sistem disiapkan untuk terhubung dengan AIS dan backend operasional di masa depan.
+      </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2025 MARSEA Hub — ALKI 1 Merak | info@marsea.id</p>
+    </footer>
+  </main>
+
+  <!-- JS -->
+  <script src="main.js"></script>
+</body>
+</html>
