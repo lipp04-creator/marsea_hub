@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MARSEA Hub — Dashboard</title>
+
+  <!-- Base UI MARSEA -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ChartJS untuk grafik NDWI -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- SIDEBAR SAMA POLA DENGAN map.html -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="assets/Logo.png" alt="Logo MARSEA" class="logo-img">
+      <h2 class="brand-title">
+        <span class="brand-main">MARSEA</span>
+        <span class="brand-sub">Hub</span>
+      </h2>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="index.html"> Home</a></li>
+      <li><a href="dashboard.html" class="active"> Dashboard</a></li>
+      <li><a href="map.html"> Map</a></li>
+      <li><a href="services.html"> Services</a></li>
+      <li><a href="mitra.html"> Mitra</a></li>
+      <li><a href="community.html"> Community</a></li>
+      <li><a href="login.html"> Login</a></li>
+      <li><a href="#" onclick="logout && logout()"> Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button id="menuToggle">☰</button>
+      <h1>Operational Dashboard — ALKI 1 &amp; MARSEA Rest Area</h1>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-text">
+        <h2>MARSEA Operational Snapshot</h2>
+        <p>
+          Ringkasan pergerakan kapal, kapasitas rest area laut, dan tren kualitas
+          perairan (NDWI) di sekitar koridor ALKI 1 Merak.
+        </p>
+        <div class="hero-cta">
+          <a href="map.html" class="btn-primary">Lihat Map Langsung</a>
+          <a href="services.html" class="btn-secondary">Kelola Layanan MARSEA</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-image-placeholder">
+          Visualisasi peta &amp; aktivitas kapal bisa diakses di halaman MAP.<br>
+          Dashboard ini fokus di ringkasan angka &amp; tren.
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI SECTION -->
+    <section class="card-block">
+      <div class="section-header" style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <h3>Key Performance Indicators</h3>
+          <p class="muted" style="font-size:0.85rem;">
+            Gambaran singkat jumlah kapal, kapasitas rest area, dan kualitas perairan.
+          </p>
+        </div>
+        <span class="muted" style="font-size:0.8rem;">
+          Last update: <span id="lastUpdate">--</span>
+        </span>
+      </div>
+
+      <div class="kpi-section">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <h4 id="kpiVessels">--</h4>
+            <p>Active Vessels (ALKI 1)</p>
+          </div>
+          <div class="kpi-card">
+            <h4 id="kpiVesselTypes">--</h4>
+            <p>Dominant Vessel Type</p>
+          </div>
+          <div class="kpi-card">
+            <h4 id="kpiSlots">--</h4>
+            <p>Available Slots (MARSEA)</p>
+          </div>
+          <div class="kpi-card">
+            <h4 id="kpiNdwi">--</h4>
+            <p>Average NDWI</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px;">
+        <div class="info-card">
+          <h4>NDWI Trend</h4>
+          <p class="muted" style="font-size:0.85rem;margin-bottom:6px;">
+            Perubahan indeks NDWI dari waktu ke waktu sebagai proxy kualitas perairan.
+          </p>
+          <div class="chart-wrapper">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h4>Rest Area Utilization</h4>
+          <p class="muted" style="font-size:0.85rem;margin-bottom:6px;">
+            Menggambarkan seberapa penuh masing-masing dermaga MARSEA berdasarkan
+            kapasitas &amp; slot tersisa.
+          </p>
+          <div id="utilList" class="restarea-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VESSEL TABLE -->
+    <section class="card-block">
+      <div class="section-header">
+        <h3>Vessel Snapshot (Top 10)</h3>
+        <p class="muted" style="font-size:0.85rem;">
+          Daftar singkat 10 kapal pertama di koridor ALKI 1 atau data booking dari backend (jika aktif).
+        </p>
+      </div>
+      <div style="overflow:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Kapal</th>
+              <th>Tipe</th>
+              <th>ETA</th>
+              <th>Catatan</th>
+            </tr>
+          </thead>
+          <tbody id="vesselTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2025 MARSEA Hub — Prototype Dashboard</p>
+    </footer>
+  </main>
+
+  <!-- SCRIPT GLOBAL (sidebar, konstanta JSON, dll) -->
+  <script src="main.js"></script>
+
+  <!-- ================================================================== -->
+  <!-- ======================== SCRIPT DASHBOARD ========================= -->
+  <!-- ================================================================== -->
+  <script src="dashboard.js"></script>
+</body>
+</html>
